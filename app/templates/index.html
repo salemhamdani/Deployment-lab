@@ -2,11 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GitOps App</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitOps Deployment Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #000dff;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #6b73ff;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6b73ff, #000dff);
+            z-index: -1;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the GitOps Application</h1>
-    <p>This application demonstrates GitOps-driven deployments using Kubernetes and ArgoCD.</p>
+    <div>
+        <h1>Welcome to the GitOps Deployment Hub</h1>
+        <p>Explore the world of automated deployments with our GitOps-driven approach. Experience seamless integrations, rapid rollbacks, and real-time updates using Kubernetes and ArgoCD.</p>
+        
+        <p>Our platform empowers developers and DevOps teams to achieve continuous delivery with confidence. Each deployment is version-controlled, auditable, and fully traceable, ensuring you always have control over your environment.</p>
+        
+        <p>Key Features:</p>
+        <ul style="list-style: none; text-align: left; padding-left: 20px;">
+            <li>✅ Automated Deployments with Git as the Single Source of Truth</li>
+            <li>✅ Easy Rollbacks with One-Click Reversions</li>
+            <li>✅ Real-Time Monitoring and Alerts for Faster Troubleshooting</li>
+            <li>✅ Full Visibility of Application Changes and Deployment History</li>
+        </ul>
+        
+        <a href="#" class="btn">Learn More</a>
+    </div>
 </body>
 </html>
