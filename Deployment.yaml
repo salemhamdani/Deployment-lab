@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: salemhamdani/flask-app:ca65dff7217ef83d6f0d35b13382c1a19ffc40bc
+        image: salemhamdani/flask-app:0701ff5d74769f249add9af40e345749540f5b35
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
