@@ -1,0 +1,111 @@
+
+Commandes
+
+1/docker login
+ minikube start --driver=docker --memory=4096 --cpus=2
+
+
+2/ cd terraform
+3/ terraform init
+
+4/terraform plan
+
+5/terraform apply
+
+6/kubectl create namespace argocd
+
+7/kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+
+8/kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+9/kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+10/kubectl apply -f Application.yaml
+
+11/kubectl port-forward deployment/flask-app 5000:5000 -n gitops-namespace
+
+
+
+12/helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+13/helm install prometheus prometheus-community/prometheus
+
+14/helm install grafana grafana/grafana
+
+
+
+15/kubectl port-forward service/grafana 3000:80
+
+16/kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+
+17/kubectl port-forward service/prometheus-server 9090:80
+
+
+Changes to the code:
+.github/workflows/main.yml: 
+        docker build -t salmaborchani/flask-app:${{ github.sha }} .
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push salmaborchani/flask-app:${{ github.sha }}
+update with your docker username + add DOCKER_USERNAME and DOCKER_PASSWORD in secrets of github after forking the repo 
+
+
+Application.yaml:
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/BorchaniSalma/GitOps-Driven-Python-Application-Deployment'
+    targetRevision: main
+    path: '.'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: gitops-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+change with fork url
+
+main.yml:
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        docker build -t salmaborchani/flask-app:${{ github.sha }} .
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push salmaborchani/flask-app:${{ github.sha }}
+
+terraform/main.tf:
+
+
+
+      spec {
+        container {
+          image = "salmaborchani/flask-app:latest"
+          name  = "flask-container"
+
+          port {
+            container_port = 5000
+
